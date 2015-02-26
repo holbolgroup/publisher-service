@@ -9,6 +9,8 @@ import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+import com.spr.filter.SimpleCORSFilter;
+
 public class Initializer implements WebApplicationInitializer {
 
 	private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
@@ -25,6 +27,10 @@ public class Initializer implements WebApplicationInitializer {
 				new DispatcherServlet(ctx));
 		servlet.addMapping("/");
 		servlet.setLoadOnStartup(1);
+		
+		servletContext.addFilter("SimpleCORSFilter", new SimpleCORSFilter())
+        .addMappingForUrlPatterns(null, false, "/*");
+		
 	}
 
 }
